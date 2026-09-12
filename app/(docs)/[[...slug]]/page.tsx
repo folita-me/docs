@@ -5,8 +5,8 @@ import {
   DocsPage,
   DocsTitle,
   MarkdownCopyButton,
-  ViewOptionsPopover,
 } from 'fumadocs-ui/layouts/docs/page';
+import { ViewOptionsPopover } from '@/components/page-actions';
 import { notFound } from 'next/navigation';
 import { getMDXComponents } from '@/components/mdx';
 import type { Metadata } from 'next';
@@ -25,7 +25,7 @@ export default async function Page(props: PageProps<'/[[...slug]]'>) {
     <DocsPage toc={page.data.toc} full={page.data.full}>
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription className="mb-0">{page.data.description}</DocsDescription>
-      {/* Markdown をコピー / ChatGPT・Claude などで開く */}
+      {/* Markdown をコピー / ChatGPT・Claude・Gemini などで開く（components/page-actions.tsx） */}
       <div className="flex flex-row gap-2 items-center border-b pb-6">
         <MarkdownCopyButton markdownUrl={markdownUrl} />
         <ViewOptionsPopover markdownUrl={markdownUrl} />

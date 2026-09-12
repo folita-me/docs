@@ -40,13 +40,6 @@ const translations = {
     'お探しのページは削除されたか、名前が変わったか、一時的に利用できません。',
   'Back to Home(404 page)': 'トップへ戻る',
   'Copy Markdown(page actions)': 'Markdown をコピー',
-  'Open(page actions)': '開く',
-  'View as Markdown(page actions)': 'Markdown で表示',
-  'Open in ChatGPT(page actions)': 'ChatGPT で開く',
-  'Open in Claude(page actions)': 'Claude で開く',
-  'Open in Cursor(page actions)': 'Cursor で開く',
-  'Open in Scira AI(page actions)': 'Scira AI で開く',
-  'Read {url}, I want to ask questions about it.(page actions)': '{url} を読んでください。この内容について質問したいです。',
 };
 
 export function Provider({ children }: { children: ReactNode }) {
