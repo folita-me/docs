@@ -12,6 +12,7 @@ docs/
 │   ├── (docs)/[[...slug]]/  # すべてのページ（ドキュメントはルート直下: docs.folita.me/editor/blocks/）
 │   ├── api/search/          # 検索索引（ビルド時に out/api/search に JSON を書き出す）
 │   ├── llms.txt/ llms-full.txt/   # AI 向けのプレーンテキスト版
+│   ├── llms.mdx/[[...slug]]/      # ページごとの Markdown（/llms.mdx/<slug>/content.md。「Markdown をコピー」「開く ▾」ボタンが使う）
 │   └── not-found.tsx        # 404（Apache の ErrorDocument が out/404.html を使う）
 ├── components/              # MDX で使うコンポーネント、検索ダイアログ、日本語の UI 文言（provider.tsx）
 ├── lib/source.ts            # content/docs の読み込み口
