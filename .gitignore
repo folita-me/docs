@@ -1,0 +1,15 @@
+# 依存
+/node_modules
+
+# fumadocs-mdx が生成するコード
+/.source
+
+# ビルド成果物（サーバー上で npm run build して作る）
+/.next/
+/out/
+*.tsbuildinfo
+next-env.d.ts
+
+# その他
+npm-debug.log*
+.DS_Store

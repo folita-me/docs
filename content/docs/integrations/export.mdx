@@ -1,0 +1,39 @@
+---
+title: "エクスポート"
+description: "イベントの CSV とプロフィールの JSON をダウンロードできます。"
+---
+
+[dashboard.folita.me/integrations](https://dashboard.folita.me/integrations) の「エクスポート」からダウンロードします。ログインが必要です。
+
+## イベント CSV
+
+閲覧とクリックの記録を 1 行 1 イベントで出力します。期間は **30 / 90 / 365 日** から選びます。
+
+```text
+GET https://dashboard.folita.me/api/export?type=events&days=90
+```
+
+UTF-8（BOM 付き）なので、Excel でそのまま開いても文字化けしません。
+
+| 列 | 内容 |
+| --- | --- |
+| `occurred_at` | 発生日時 |
+| `type` | `view` または `click` |
+| `block_id` | クリックされたブロックの ID（閲覧では空） |
+| `block_title` | そのブロックの現在のタイトル |
+| `referrer` | 参照元のホスト名 |
+
+## プロフィール JSON
+
+プロフィール・テーマ・ブロック・カスタム CSS をまとめた JSON です。バックアップや、自分のサイトでの再利用に使えます。
+
+```text
+GET https://dashboard.folita.me/api/export?type=profile
+```
+
+構造はエディタが保存に使うものと同じで、`displayName` `bio` `avatarUrl` `coverUrl` `theme` `customCss` `layoutMode` `published` `blocks` を含みます。
+各ブロックは `id` `type` `content` `style` `sortOrder` `colSpan` `rowSpan` `visible` を持ちます。
+
+<Callout type="info">
+JSON を編集して戻す「インポート」は用意していません。エディタ上で編集してください。
+</Callout>

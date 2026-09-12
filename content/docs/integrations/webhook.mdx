@@ -1,0 +1,116 @@
+---
+title: "Webhook"
+description: "公開ページの閲覧とクリックを、あなたのサーバーへ JSON で POST します。HMAC 署名で検証できます。"
+---
+
+閲覧やクリックが起きるたびに、指定した URL へ JSON を POST します。Slack / Discord への通知、自前の集計、CRM への連携などに使えます。
+
+## 設定
+
+[dashboard.folita.me/integrations](https://dashboard.folita.me/integrations) の「Webhook」で設定します。
+
+| 項目 | 内容 |
+| --- | --- |
+| URL | `https://` で始まる URL。folita 自身やプライベートアドレス（`10.x` `192.168.x` `localhost` など）は指定できません |
+| シークレット | 署名に使う秘密の文字列。自動で発行され、「再発行」で新しくできます |
+| イベント | `profile.view`（閲覧）と `profile.click`（クリック）を個別にオン / オフ |
+| 有効 | 全体のオン / オフ |
+| テスト送信 | `test` イベントを今すぐ送って、応答のステータスを確認 |
+
+## リクエスト
+
+```http
+POST /your/endpoint HTTP/1.1
+Content-Type: application/json
+X-Folita-Event: profile.click
+X-Folita-Delivery: 5f1c9d2e8a7b3c40
+X-Folita-Signature: sha256=3b7f...e91a
+```
+
+| ヘッダー | 内容 |
+| --- | --- |
+| `X-Folita-Event` | `profile.view` / `profile.click` / `test` |
+| `X-Folita-Delivery` | 送信ごとに一意の ID。重複処理を防ぐのに使えます |
+| `X-Folita-Signature` | `sha256=` + HMAC-SHA256（鍵はシークレット、対象はリクエスト本文そのまま）の 16 進数 |
+
+本文:
+
+```json
+{
+  "event": "profile.click",
+  "profileId": 12,
+  "handle": "yourname",
+  "blockId": "3f8c1e2a-9b4d-4c6e-8f10-2a7b5c9d1e34",
+  "block": {
+    "id": "3f8c1e2a-9b4d-4c6e-8f10-2a7b5c9d1e34",
+    "type": "link",
+    "title": "Portfolio",
+    "url": "https://example.com/works"
+  },
+  "referrer": "x.com",
+  "occurredAt": "2026-09-12T03:21:45+00:00"
+}
+```
+
+| フィールド | 内容 |
+| --- | --- |
+| `event` | イベント名 |
+| `profileId` | プロフィールの内部 ID |
+| `handle` | ユーザー ID |
+| `blockId` / `block` | クリックの場合のみ。閲覧では `""` と `null` |
+| `referrer` | 参照元のホスト名（無ければ `""`） |
+| `occurredAt` | UTC の ISO 8601 |
+
+`test` イベントは `blockId` が空、`block` が `null` で、それ以外は同じ形です。
+
+## 署名を検証する
+
+受け取った本文をそのまま（パースし直さずに）HMAC-SHA256 にかけ、ヘッダーの値と比較します。
+
+<Tabs items={['Node.js', 'PHP', 'Python']}>
+<Tab value="Node.js">
+```js
+import { createHmac, timingSafeEqual } from 'node:crypto';
+
+export function verify(rawBody, signatureHeader, secret) {
+  const expected = 'sha256=' + createHmac('sha256', secret).update(rawBody).digest('hex');
+  const a = Buffer.from(expected);
+  const b = Buffer.from(signatureHeader ?? '');
+  return a.length === b.length && timingSafeEqual(a, b);
+}
+```
+</Tab>
+<Tab value="PHP">
+```php
+$raw  = file_get_contents('php://input');
+$sig  = $_SERVER['HTTP_X_FOLITA_SIGNATURE'] ?? '';
+$want = 'sha256=' . hash_hmac('sha256', $raw, $secret);
+if (!hash_equals($want, $sig)) {
+    http_response_code(401);
+    exit;
+}
+```
+</Tab>
+<Tab value="Python">
+```python
+import hmac, hashlib
+
+def verify(raw_body: bytes, signature: str, secret: str) -> bool:
+    want = "sha256=" + hmac.new(secret.encode(), raw_body, hashlib.sha256).hexdigest()
+    return hmac.compare_digest(want, signature or "")
+```
+</Tab>
+</Tabs>
+
+## 配信の仕様
+
+- 閲覧者への応答を返した **後** に送るので、閲覧者のページ表示は遅くなりません
+- タイムアウトは 5 秒。2xx 以外の応答とタイムアウトは失敗として数えます
+- **再送はしません**。集計の正としては [エクスポート](/integrations/export/) を使ってください
+- 失敗が **10 回連続** すると自動で停止します。設定画面に直近の結果が出るので、直したら「再開」で戻せます
+- 送信元の IP アドレスは固定ではありません。署名で検証してください
+
+## Discord / Slack に通知したい
+
+Discord や Slack の Incoming Webhook は本文の形式が決まっているため、folita から直接は送れません。
+中継用の小さなエンドポイント（Cloudflare Workers など）で受けて、整形してから転送してください。

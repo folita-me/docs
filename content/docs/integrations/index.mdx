@@ -1,0 +1,37 @@
+---
+title: "計測タグ（GA4 / Meta ピクセル）"
+description: "Google アナリティクス 4 と Meta ピクセルのタグを、公開ページに埋め込みます。"
+---
+
+データ連携の設定は [dashboard.folita.me/integrations](https://dashboard.folita.me/integrations) です。
+folita 自身の [アナリティクス](/analytics/) に加えて、外部の計測ツールも使えます。
+
+## Google アナリティクス 4
+
+GA4 の **測定 ID**（`G-XXXXXXXXXX`）を設定すると、公開ページの `<head>` で gtag.js を読み込みます。
+
+- ページビューは通常どおり送られます
+- リンク・リッチリンク・画像・SNS アイコンのクリックは、イベント `folita_click` として送られます
+
+| パラメータ | 内容 |
+| --- | --- |
+| `block_id` | クリックされたブロックの ID |
+| `link_url` | リンク先の URL |
+
+GA4 側で `folita_click` をキーイベント（コンバージョン）にすると、リンクごとの成果を追えます。
+
+## Meta ピクセル
+
+**ピクセル ID**（数字）を設定すると、公開ページで `fbevents.js` を読み込み、`PageView` を送ります。
+広告のリターゲティングやコンバージョン計測に使えます。
+
+## 共通の動作
+
+- どちらも **DNT（Do Not Track）** を送っている閲覧者には読み込みません
+- エディタのプレビューでは読み込みません
+- ID を空にして保存すると、タグは出力されなくなります
+
+<Cards>
+  <Card title="Webhook" href="/integrations/webhook/" description="閲覧とクリックを自分のサーバーに送る" />
+  <Card title="エクスポート" href="/integrations/export/" description="イベントの CSV とプロフィールの JSON" />
+</Cards>
