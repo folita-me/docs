@@ -1,0 +1,17 @@
+{
+  "title": "ガイド",
+  "description": "folita の使い方",
+  "root": true,
+  "pages": [
+    "index",
+    "getting-started",
+    "---エディタ---",
+    "editor",
+    "---公開と計測---",
+    "analytics",
+    "custom-domain",
+    "---その他---",
+    "account",
+    "faq"
+  ]
+}

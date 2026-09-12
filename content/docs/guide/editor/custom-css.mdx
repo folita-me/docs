@@ -1,0 +1,80 @@
+---
+title: "カスタム CSS"
+description: "公開ページのクラス名と CSS 変数を使って、デザイン設定にない見た目も自由に作れます。"
+---
+
+「CSS」タブに書いた CSS は、公開ページの `<style>` としてそのまま出力されます。
+デザイン設定で足りないときや、特定のブロックだけ変えたいときに使います。
+
+<Callout type="warn" title="安全のために削除されるもの">
+`<style>` `<script>` タグ、`@import`、`expression()`、`javascript:` は保存時に取り除かれます。外部 CSS の読み込みはできません。
+</Callout>
+
+## セレクタに使えるもの
+
+公開ページの要素には `.folita-page` `.folita-link` `.folita-name` のような **`.folita-` で始まるクラス** が付いていて、
+各ブロックには `data-block-id="..."` 属性と、ブロックの設定で付けた **クラス名** も付きます。
+デザイン設定の値は `--f-text` `--f-btn` のような **CSS 変数** になっているので、変数を上書きするとそれを使う要素がまとめて変わります。
+
+クラス名と CSS 変数の一覧は [リファレンス › クラスと CSS 変数](/reference/css/) にあります。
+
+## 例
+
+### リンクのホバーを少し浮かせる
+
+```css
+.folita-link {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.folita-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+```
+
+### 特定のブロックだけ目立たせる
+
+ブロックの設定で **クラス名** に `hero` と付けた場合:
+
+```css
+.folita-block.hero .folita-link {
+  background: linear-gradient(90deg, #f472b6, #a78bfa);
+  color: #fff;
+  font-weight: 700;
+}
+```
+
+`data-block-id` でも指定できます（ID はブロックを選択したときにパネルに表示されます）。
+
+```css
+[data-block-id="3f8c1e2a-…"] {
+  border: 2px dashed var(--f-accent);
+}
+```
+
+### 名前にグラデーション
+
+```css
+.folita-name {
+  background: linear-gradient(90deg, #06b6d4, #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+```
+
+### Web フォントを使う
+
+`@import` は使えないので、Google Fonts の `@font-face` 形式ではなく、[デザイン](/guide/editor/design/) のフォント一覧から選んでください。
+一覧にないフォントは、端末にインストール済みのものだけ `font-family` で指定できます。
+
+```css
+.folita-page {
+  --f-font: 'Hiragino Mincho ProN', serif;
+}
+```
+
+## 動作の確認
+
+プレビューは公開ページと同じ HTML なので、書いた CSS はすぐ右側に反映されます。
+スマートフォンでの見え方はブラウザの幅を狭めるか、保存後に公開 URL を実機で開いて確認してください。

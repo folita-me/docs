@@ -1,0 +1,57 @@
+---
+title: "URL とホスト"
+description: "folita が使うホストと、ログインなしで開ける URL の一覧。"
+---
+
+folita は役割ごとにホストが分かれています。ログイン状態（cookie）は `folita.me` 配下のすべてのホストで共有されます。
+
+## ホスト
+
+| ホスト | 役割 |
+| --- | --- |
+| `folita.me` / `www.folita.me` | トップページと公開プロフィール（`/@handle` `/handle`） |
+| `accounts.folita.me` | ログイン・新規登録・パスワード再設定・アカウント設定（`/settings`） |
+| `dashboard.folita.me` | エディタ（`/`）・アナリティクス（`/analytics`）・データ連携（`/integrations`）と、それらが使う API |
+| `docs.folita.me` | このドキュメント |
+| `<handle>.folita.me` | そのユーザーの公開プロフィール（`/` のみ。他のパスは `folita.me` へ転送） |
+| 独自ドメイン | 所有権を確認したユーザーの公開プロフィール |
+| `api` `status` `cdn` `demo` `official` | 予約済み。ユーザー ID としては取れません |
+
+## 公開 URL
+
+| URL | 内容 |
+| --- | --- |
+| `https://folita.me/@handle` | 公開プロフィール |
+| `https://folita.me/handle` | 同じ（`@` なし） |
+| `https://handle.folita.me/` | 同じ（サブドメイン） |
+| `https://folita.me/uploads/<file>` | アップロードした画像 |
+
+未公開のプロフィールと存在しない ID は 404 です。
+
+## アカウント
+
+| URL | 内容 |
+| --- | --- |
+| `https://accounts.folita.me/login` | ログイン |
+| `https://accounts.folita.me/signup` | 新規登録 |
+| `https://accounts.folita.me/logout` | ログアウト |
+| `https://accounts.folita.me/sessions/forgot_password` | パスワード再設定メールの送信 |
+| `https://accounts.folita.me/settings` | アカウント設定（`?tab=domain` で独自ドメイン） |
+| `https://accounts.folita.me/authorize?provider=<google\|github\|x\|apple\|line\|discord>` | ソーシャルログインの開始（`&link=1` で連携の追加） |
+
+## ダッシュボード
+
+| URL | 内容 |
+| --- | --- |
+| `https://dashboard.folita.me/` | エディタ |
+| `https://dashboard.folita.me/analytics?days=7\|30` | アナリティクス |
+| `https://dashboard.folita.me/integrations` | データ連携 |
+| `https://dashboard.folita.me/api/export?type=events&days=30\|90\|365` | イベント CSV（[エクスポート](/integrations/export/)） |
+| `https://dashboard.folita.me/api/export?type=profile` | プロフィール JSON |
+| `https://dashboard.folita.me/api/handle?handle=<id>` | ユーザー ID の空き確認（JSON） |
+| `https://dashboard.folita.me/api/me` | ログイン状態（JSON） |
+
+<Callout type="info">
+`/api/profile` `/api/preview` `/api/upload` などエディタが使う API はブラウザの同一サイトからだけ呼べます（CSRF トークンが必要）。
+外部プログラムからの利用は想定していません。データを取り出すには [エクスポート](/integrations/export/) を使ってください。
+</Callout>

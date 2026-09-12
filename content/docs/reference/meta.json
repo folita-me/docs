@@ -1,0 +1,11 @@
+{
+  "title": "リファレンス",
+  "description": "URL・プロフィール JSON・CSS・制限の一覧",
+  "root": true,
+  "pages": [
+    "index",
+    "profile-json",
+    "css",
+    "limits"
+  ]
+}

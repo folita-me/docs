@@ -1,0 +1,86 @@
+---
+title: "クラスと CSS 変数"
+description: "公開ページの HTML に付くクラス名・属性と、テーマの CSS 変数の一覧。カスタム CSS のセレクタに使います。"
+---
+
+使い方と例は [カスタム CSS](/guide/editor/custom-css/) を見てください。ここに載せた名前はバージョンアップでも変えません。
+
+## ページの構造
+
+```html
+<body class="folita-page">
+  <div class="folita-cover">…</div>                 <!-- カバー画像（設定時のみ） -->
+  <main class="folita-container">
+    <header class="folita-header">
+      <img class="folita-avatar">                  <!-- 画像が無いときは .folita-avatar--initial -->
+      <h1 class="folita-name">…</h1>
+      <p class="folita-bio">…</p>
+    </header>
+    <div class="folita-blocks">                     <!-- グリッド配置では .folita-blocks--grid も付く -->
+      <div class="folita-block folita-block-link" data-block-id="…">
+        <a class="folita-link folita-btn">…</a>
+      </div>
+      …
+    </div>
+    <footer class="folita-footer">…</footer>
+  </main>
+</body>
+```
+
+## クラス
+
+| クラス | 要素 |
+| --- | --- |
+| `.folita-page` | ページ全体（`<body>`）。CSS 変数はここに定義されている |
+| `.folita-cover` | カバー画像。あるときは `.folita-container--cover` も付く |
+| `.folita-container` | 本体（最大幅を持つ中央の列） |
+| `.folita-header` | アイコン・名前・自己紹介のまとまり |
+| `.folita-avatar` | アイコン。形は `.folita-avatar--circle` `--rounded` `--square`、画像が無いときは `.folita-avatar--initial` |
+| `.folita-name` / `.folita-bio` | 表示名 / 自己紹介 |
+| `.folita-blocks` | ブロックの並び。グリッド配置では `.folita-blocks--grid` |
+| `.folita-block` | 各ブロックの外枠。種類ごとに `.folita-block-link` `-richlink` `-text` `-heading` `-image` `-social` `-embed` `-divider` |
+| `.folita-block--hidden` | 非表示にしたブロック（エディタのプレビューでのみ出る） |
+| `.folita-col-1` `.folita-col-2` / `.folita-row-1` `.folita-row-2` | グリッド配置での幅 / 高さ |
+| `.folita-link` `.folita-btn` | リンクのボタン。スタイルは `.folita-btn--solid` `--outline` `--soft` `--shadow` `--glass` |
+| `.folita-richlink` | リッチリンク（カード） |
+| `.folita-text` / `.folita-heading` | テキスト / 見出し。見出しは `.folita-heading--1` `--2` `--3` |
+| `.folita-align-left` `-center` `-right` | テキスト・見出しの揃え |
+| `.folita-image` / `.folita-image-link` | 画像 / リンク付き画像。縦横比は `.folita-aspect-square` `-video` `-wide` |
+| `.folita-social` / `.folita-social-icon` | SNS アイコンの列 / アイコン 1 つ |
+| `.folita-embed` | 埋め込み。サービスごとに `.folita-embed--youtube` など |
+| `.folita-divider` | 区切り線 |
+| `.folita-footer` | ページ下部の folita 表記 |
+
+## 属性
+
+| 属性 | 内容 |
+| --- | --- |
+| `data-block-id="<UUID>"` | 各ブロックの外枠。ID はエディタでブロックを選択したときに表示され、[プロフィール JSON](/reference/profile-json/) の `id` と同じ |
+| ブロックの設定の **クラス名** | そのブロックの外枠に追加される |
+
+## CSS 変数
+
+`.folita-page` に定義されています。値は [デザイン](/guide/editor/design/) の設定から作られます。
+
+| 変数 | 内容 | 既定値（クリーン） |
+| --- | --- | --- |
+| `--f-bg` | 背景（色またはグラデーション） | `#f7f7f5` |
+| `--f-text` | 文字色 | `#171717` |
+| `--f-muted` | 補助の文字色 | `#737373` |
+| `--f-accent` | アクセント色 | `#111111` |
+| `--f-btn` | ボタンの色 | `#111111` |
+| `--f-btn-text` | ボタンの文字色 | `#ffffff` |
+| `--f-btn-radius` | ボタンの角丸 | `14px` |
+| `--f-card` | カードの背景 | `rgba(255,255,255,0.85)` |
+| `--f-max` | 本体の最大幅 | `560px` |
+| `--f-avatar` | アイコンの大きさ | `96px` |
+| `--f-font` | フォント | Noto Sans JP |
+
+## 取り除かれる CSS
+
+カスタム CSS は保存時に次を取り除きます。それ以外の CSS はそのまま出力されます。
+
+- `<style>` `<script>` などのタグ
+- `@import`
+- `expression()`
+- `javascript:` で始まる URL

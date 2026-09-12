@@ -1,4 +1,10 @@
 {
   "title": "データ連携",
-  "pages": ["index", "webhook", "export"]
+  "description": "GA4 / Meta ピクセル・Webhook・エクスポート",
+  "root": true,
+  "pages": [
+    "index",
+    "webhook",
+    "export"
+  ]
 }

@@ -1,5 +1,8 @@
-// ヘッダー（ロゴ・右上のリンク）の共通設定
+// ヘッダー（ロゴ・右上のリンク）と、サイドバー上部のタブ（meta.json で root: true にしたフォルダ）の共通設定
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
+import type { LayoutTab } from 'fumadocs-ui/layouts/shared';
+import { BookOpen, Code2, Plug } from 'lucide-react';
+import type { ReactNode } from 'react';
 import { dashboardOrigin, siteOrigin } from './site';
 
 export function baseOptions(): BaseLayoutProps {
@@ -14,11 +17,27 @@ export function baseOptions(): BaseLayoutProps {
           folita ドキュメント
         </span>
       ),
-      url: '/',
+      url: '/guide/',
     },
     links: [
       { text: 'folita.me', url: siteOrigin, external: true },
       { text: 'エディタを開く', url: dashboardOrigin, external: true },
     ],
+  };
+}
+
+/** タブのアイコン（URL で引く。フォルダの並びは content/docs/meta.json） */
+const tabIcons: Record<string, ReactNode> = {
+  '/guide': <BookOpen />,
+  '/integrations': <Plug />,
+  '/reference': <Code2 />,
+};
+
+export function tabOptions() {
+  return {
+    transform: (tab: LayoutTab): LayoutTab => ({
+      ...tab,
+      icon: tabIcons[tab.url.replace(/\/$/, '')] ?? tab.icon,
+    }),
   };
 }

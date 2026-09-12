@@ -1,0 +1,111 @@
+---
+title: "プロフィール JSON"
+description: "エクスポートやエディタの保存で使うプロフィールデータの形。"
+---
+
+[エクスポート](/integrations/export/) の「プロフィール JSON」は、エディタがサーバーに保存するデータそのものです。
+保存時にサーバーが値を検証して、範囲外の値は既定値に置き換えます。
+
+## 全体
+
+```json
+{
+  "id": 12,
+  "userId": 34,
+  "displayName": "山田 花子",
+  "bio": "イラストレーター。お仕事のご相談は DM へ",
+  "avatarUrl": "/uploads/abc123.png",
+  "coverUrl": "",
+  "theme": { "...": "テーマ（下記）" },
+  "customCss": ".folita-link { font-weight: 700 }",
+  "layoutMode": "grid",
+  "published": true,
+  "updatedAt": 1757646105,
+  "blocks": [ { "...": "ブロック（下記）" } ]
+}
+```
+
+| キー | 型 | 内容 |
+| --- | --- | --- |
+| `displayName` | string | 表示名（80 文字まで） |
+| `bio` | string | 自己紹介（1000 文字まで） |
+| `avatarUrl` / `coverUrl` | string | アイコン / カバー画像の URL。空なら未設定 |
+| `theme` | object | テーマ |
+| `customCss` | string | カスタム CSS（保存時にサニタイズ） |
+| `layoutMode` | `"stack"` \| `"grid"` | 縦並び / グリッド |
+| `published` | boolean | 公開しているか |
+| `updatedAt` | number | 最終保存の UNIX 時刻（秒） |
+| `blocks` | array | ブロック。`sortOrder` の順 |
+
+## テーマ
+
+```json
+{
+  "preset": "clean",
+  "background": { "type": "solid", "color": "#f7f7f5" },
+  "fontFamily": "noto-sans-jp",
+  "textColor": "#171717",
+  "mutedColor": "#737373",
+  "accentColor": "#111111",
+  "buttonStyle": "solid",
+  "buttonColor": "#111111",
+  "buttonTextColor": "#ffffff",
+  "buttonRadius": 14,
+  "cardBg": "rgba(255,255,255,0.85)",
+  "avatarShape": "circle",
+  "avatarSize": 96,
+  "maxWidth": 560
+}
+```
+
+| キー | 取りうる値 |
+| --- | --- |
+| `preset` | `clean` `midnight` `sakura` `mono` `forest` `paper` `pop` `custom` |
+| `background.type` | `solid`（`color`）/ `gradient`（`from` `to` `angle` 0〜360）/ `image`（`url` `overlay` 0〜1） |
+| `fontFamily` | `system` `noto-sans-jp` `inter` `zen-kaku` `mplus-rounded` `kosugi-maru` `shippori-mincho` `playfair` `space-grotesk` `dm-mono` `dela-gothic` |
+| `textColor` `mutedColor` `accentColor` `buttonColor` `buttonTextColor` `cardBg` | CSS の色（`#rgb` `#rrggbb` `rgb()` `rgba()` など） |
+| `buttonStyle` | `solid` `outline` `soft` `shadow` `glass` |
+| `buttonRadius` | 0〜999 |
+| `avatarShape` | `circle` `rounded` `square` |
+| `avatarSize` | 40〜240 |
+| `maxWidth` | 320〜1200 |
+
+## ブロック
+
+すべてのブロックに共通のキー:
+
+```json
+{
+  "id": "3f8c1e2a-9b4d-4c6e-8f10-2a7b5c9d1e34",
+  "type": "link",
+  "content": { "...": "種類ごと（下記）" },
+  "style": { "bg": "#ffffff", "color": "#111111", "radius": 12, "className": "hero" },
+  "sortOrder": 0,
+  "colSpan": 2,
+  "rowSpan": 1,
+  "visible": true
+}
+```
+
+| キー | 内容 |
+| --- | --- |
+| `id` | UUID。[Webhook](/integrations/webhook/) と [CSS](/reference/css/) の `data-block-id` に使われる |
+| `type` | `link` `richlink` `text` `heading` `image` `social` `embed` `divider` |
+| `style` | 任意。`bg` `color`（色）、`radius`（0〜999）、`className`（300 文字まで） |
+| `colSpan` / `rowSpan` | グリッド配置での幅（1: 半分、2: 全幅）と高さ（1〜2 行） |
+| `visible` | 非表示なら `false` |
+
+### `content` の形
+
+| type | キー |
+| --- | --- |
+| `link` | `title`（200）`url` `emoji`（16）`newTab`（boolean） |
+| `richlink` | `title`（200）`url` `description`（1000）`imageUrl` `newTab` |
+| `text` | `text`（5000）`align`（`left` `center` `right`） |
+| `heading` | `text`（200）`level`（1〜3）`align` |
+| `image` | `imageUrl` `url`（リンク先、任意）`title`（代替テキスト、200）`aspect`（`auto` `square` `video` `wide`） |
+| `social` | `items`: `[{ "platform": "x", "url": "https://x.com/..." }, ...]`（30 個まで）。`platform` は `x` `instagram` `youtube` `tiktok` `github` `note` `pixiv` `twitch` `discord` `line` `threads` `bluesky` `spotify` `website` `email` |
+| `embed` | `embedUrl`（YouTube / Spotify / Vimeo / SoundCloud の URL）`title`（200） |
+| `divider` | なし |
+
+括弧内は最大文字数です。URL は `https:` `http:` `mailto:` `tel:` とサイト内パスだけが有効で、それ以外は空になります。

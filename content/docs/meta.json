@@ -1,16 +1,8 @@
 {
   "title": "folita ドキュメント",
   "pages": [
-    "index",
-    "getting-started",
-    "---エディタ---",
-    "editor",
-    "---公開と計測---",
-    "analytics",
-    "custom-domain",
+    "guide",
     "integrations",
-    "---その他---",
-    "account",
-    "faq"
+    "reference"
   ]
 }

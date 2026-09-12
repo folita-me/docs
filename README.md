@@ -7,7 +7,8 @@
 
 ```text
 docs/
-├── content/docs/            # 本文（MDX）。フォルダ = サイドバーのグループ。並び順は meta.json
+├── content/docs/            # 本文（MDX）。guide / integrations / reference の 3 フォルダ（meta.json の root: true）がサイドバー上部のタブになる
+│                            # タブの中のフォルダ = サイドバーのグループ。並び順は各 meta.json。タブのアイコンは lib/layout.shared.tsx
 ├── app/
 │   ├── (docs)/[[...slug]]/  # すべてのページ（ドキュメントはルート直下: docs.folita.me/editor/blocks/）
 │   ├── api/search/          # 検索索引（ビルド時に out/api/search に JSON を書き出す）
@@ -25,7 +26,8 @@ docs/
 - `content/docs/**.mdx`。frontmatter は `title` と `description`（`:` を含むときは引用符で囲む）
 - 見出しは `##` から。`<Callout>` `<Steps>/<Step>` `<Tabs>/<Tab>` `<Cards>/<Card>` `<Accordions>/<Accordion>` が使える
 - ページ間のリンクは `/editor/blocks/` のように末尾スラッシュ付きの絶対パスで書く（`trailingSlash: true`）
-- サイドバーの並びとグループ名は各フォルダの `meta.json`（`"---見出し---"` は区切り）
+- サイドバーの並びとグループ名は各フォルダの `meta.json`（`"---見出し---"` は区切り）。タブを増やすには `content/docs/<name>/meta.json` に `"root": true` と `title` `description` を書き、`content/docs/meta.json` の `pages` と `lib/layout.shared.tsx` の `tabIcons` に足す
+- ルート `/` は Apache が `/guide/` へ 302 する（ルートにページは無い）
 
 ## ビルドとデプロイ
 
