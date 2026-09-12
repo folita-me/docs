@@ -5,7 +5,7 @@ export const accountsOrigin = 'https://accounts.folita.me';
 export const dashboardOrigin = 'https://dashboard.folita.me';
 export const docsOrigin = 'https://docs.folita.me';
 
-// ドキュメントのソース（docs/ を git subtree で push したミラー。「GitHub で開く」「GitHub で編集」のリンク先）
+// ドキュメントのソース（docs/ を git subtree で push したミラー。ヘッダーの GitHub アイコンのリンク先）
 export const gitConfig = {
   user: 'folita-me',
   repo: 'docs',
