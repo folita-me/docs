@@ -4,6 +4,7 @@ import {
   DocsDescription,
   DocsPage,
   DocsTitle,
+  EditOnGitHub,
   MarkdownCopyButton,
   ViewOptionsPopover,
 } from 'fumadocs-ui/layouts/docs/page';
@@ -12,6 +13,7 @@ import { getMDXComponents } from '@/components/mdx';
 import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { getPageMarkdownUrl } from '@/lib/shared';
+import { gitConfig } from '@/lib/site';
 
 export default async function Page(props: PageProps<'/[[...slug]]'>) {
   const params = await props.params;
@@ -20,6 +22,7 @@ export default async function Page(props: PageProps<'/[[...slug]]'>) {
 
   const MDX = page.data.body;
   const markdownUrl = getPageMarkdownUrl(page).url;
+  const githubUrl = `https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/content/docs/${page.path}`;
 
   return (
     <DocsPage toc={page.data.toc} full={page.data.full}>
@@ -28,7 +31,8 @@ export default async function Page(props: PageProps<'/[[...slug]]'>) {
       {/* Markdown をコピー / ChatGPT・Claude などで開く */}
       <div className="flex flex-row gap-2 items-center border-b pb-6">
         <MarkdownCopyButton markdownUrl={markdownUrl} />
-        <ViewOptionsPopover markdownUrl={markdownUrl} />
+        <ViewOptionsPopover markdownUrl={markdownUrl} githubUrl={githubUrl} />
+        <EditOnGitHub href={githubUrl} className="ms-auto" />
       </div>
       <DocsBody>
         <MDX

@@ -41,6 +41,15 @@ npm run build     # → out/ が更新され、そのまま公開される
 Apache 側は `/etc/apache2/sites-available/folita.conf` の 2 つ目の `<VirtualHost>`（`ServerName docs.folita.me`、`DocumentRoot /var/www/folita/docs/out`）。
 本体側の `.htaccess` は `folita.me/docs/...` を `docs.folita.me` へ 302 して、このディレクトリのソースや `node_modules` が folita.me から見えないようにしている。
 
+## GitHub のミラー（folita-me/docs）
+
+このディレクトリは https://github.com/folita-me/docs に `git subtree` で push している（ページの「GitHub で開く」「GitHub で編集」のリンク先）。
+本体リポジトリで docs/ の変更をコミットしたら、本体のルートで次を実行して同期する。
+
+```bash
+git subtree push --prefix=docs git@github.com:folita-me/docs.git main
+```
+
 ## 確認
 
 ```bash

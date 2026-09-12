@@ -3,7 +3,7 @@ import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import type { LayoutTab } from 'fumadocs-ui/layouts/shared';
 import { BookOpen, Code2, Plug } from 'lucide-react';
 import type { ReactNode } from 'react';
-import { dashboardOrigin, siteOrigin } from './site';
+import { dashboardOrigin, githubUrl, siteOrigin } from './site';
 
 export function baseOptions(): BaseLayoutProps {
   return {
@@ -23,6 +23,7 @@ export function baseOptions(): BaseLayoutProps {
       { text: 'folita.me', url: siteOrigin, external: true },
       { text: 'エディタを開く', url: dashboardOrigin, external: true },
     ],
+    githubUrl,
   };
 }
 
