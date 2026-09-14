@@ -37,7 +37,7 @@ folita は役割ごとにホストが分かれています。ログイン状態�
 | `https://accounts.folita.me/signup` | 新規登録 |
 | `https://accounts.folita.me/logout` | ログアウト |
 | `https://accounts.folita.me/sessions/forgot_password` | パスワード再設定メールの送信 |
-| `https://accounts.folita.me/settings` | 設定（`?tab=domain` で独自ドメイン、`?tab=analytics` でアナリティクス分析） |
+| `https://accounts.folita.me/settings` | 設定（`?tab=domain` で独自ドメイン、`?tab=analytics` でアナリティクス分析、`?tab=other` で Webhook・エクスポート） |
 | `https://accounts.folita.me/authorize?provider=<google\|github\|x\|apple\|line\|discord>` | ソーシャルログインの開始（`&link=1` で連携の追加） |
 
 ## ダッシュボード
@@ -46,7 +46,7 @@ folita は役割ごとにホストが分かれています。ログイン状態�
 | --- | --- |
 | `https://dashboard.folita.me/` | エディタ |
 | `https://dashboard.folita.me/analytics?days=7\|30` | アナリティクス |
-| `https://dashboard.folita.me/integrations` | 連携（Webhook・エクスポート） |
+| `https://dashboard.folita.me/integrations` | 連携パネル（[データソース](/integrations/sources/)） |
 | `https://dashboard.folita.me/api/export?type=events&days=30\|90\|365` | イベント CSV（[エクスポート](/integrations/export/)） |
 | `https://dashboard.folita.me/api/export?type=profile` | プロフィール JSON |
 | `https://dashboard.folita.me/api/handle?handle=<id>` | ユーザー ID の空き確認（JSON） |

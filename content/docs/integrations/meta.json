@@ -1,9 +1,10 @@
 {
   "title": "連携・計測",
-  "description": "GA4 / Meta ピクセル・Webhook・エクスポート",
+  "description": "データソース・GA4 / Meta ピクセル・Webhook・エクスポート",
   "root": true,
   "pages": [
     "index",
+    "sources",
     "webhook",
     "export"
   ]

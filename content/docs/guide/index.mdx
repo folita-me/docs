@@ -12,7 +12,7 @@ description: "lit.link や Bento で有料の機能を、すべて無料で使�
   <Card title="ブロック" href="/guide/editor/blocks/" description="リンク・カード・テキスト・画像・SNS・埋め込み" />
   <Card title="カスタム CSS" href="/guide/editor/custom-css/" description="クラス名と CSS 変数で見た目を自由に上書きする" />
   <Card title="独自ドメイン" href="/guide/custom-domain/" description="自分のドメインでプロフィールを公開する" />
-  <Card title="連携・計測" href="/integrations/" description="GA4 / Meta ピクセル、Webhook、エクスポート" />
+  <Card title="連携・計測" href="/integrations/" description="データソース、GA4 / Meta ピクセル、Webhook、エクスポート" />
   <Card title="リファレンス" href="/reference/" description="URL・プロフィール JSON・CSS・制限の一覧" />
 </Cards>
 
@@ -26,7 +26,8 @@ description: "lit.link や Bento で有料の機能を、すべて無料で使�
 | カスタム CSS | 公開ページのクラス名（`.folita-*`）と `[data-block-id]` で何でも上書きできる |
 | アナリティクス | 閲覧数・ブロックごとのクリック数・流入元。DNT（Do Not Track）を尊重し、IP アドレスは保存しない |
 | アナリティクス分析 | Google アナリティクス 4 / Meta ピクセルのタグ埋め込み（設定から） |
-| 連携 | 閲覧・クリックの Webhook（HMAC 署名付き）、CSV / JSON のエクスポート |
+| 連携 | ソーシャル連携から受け取ったデータ（データソース）の確認と取り直し |
+| その他（設定） | 閲覧・クリックの Webhook（HMAC 署名付き）、CSV / JSON のエクスポート |
 | 独自ドメイン | DNS の TXT レコードで所有権を確認して、自分のドメインで公開 |
 
 ## 公開 URL
@@ -46,7 +47,7 @@ folita は役割ごとにホストが分かれています。ログイン状態�
 | ホスト | 役割 |
 | --- | --- |
 | `folita.me` | トップページと公開プロフィール（`/@handle`） |
-| `accounts.folita.me` | ログイン・新規登録・設定（アカウント・独自ドメイン・アナリティクス分析） |
+| `accounts.folita.me` | ログイン・新規登録・設定（アカウント・独自ドメイン・アナリティクス分析・その他） |
 | `dashboard.folita.me` | エディタ・アナリティクス・連携 |
 | `docs.folita.me` | このドキュメント |
 

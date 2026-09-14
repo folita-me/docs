@@ -4,7 +4,7 @@ description: "Google アナリティクス 4 と Meta ピクセルのタグを�
 ---
 
 計測タグは [accounts.folita.me/settings?tab=analytics](https://accounts.folita.me/settings?tab=analytics)（設定の「アナリティクス分析」タブ）で設定します。
-Webhook とエクスポートは、設定とは別の [連携](https://dashboard.folita.me/integrations) パネルにあります。
+Webhook とエクスポートは設定の「その他」タブ、ソーシャル連携から受け取ったデータは [連携パネル](/integrations/sources/) で確認できます。
 folita 自身の [アナリティクス](/guide/analytics/) に加えて、外部の計測ツールも使えます。
 
 ## Google アナリティクス 4
@@ -33,6 +33,7 @@ GA4 側で `folita_click` をキーイベント（コンバージョン）にす
 - ID を空にして保存すると、タグは出力されなくなります
 
 <Cards>
+  <Card title="データソース" href="/integrations/sources/" description="ソーシャル連携から受け取ったデータを確認する" />
   <Card title="Webhook" href="/integrations/webhook/" description="閲覧とクリックを自分のサーバーに送る" />
   <Card title="エクスポート" href="/integrations/export/" description="イベントの CSV とプロフィールの JSON" />
 </Cards>
