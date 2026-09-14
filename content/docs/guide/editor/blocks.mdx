@@ -1,6 +1,6 @@
 ---
 title: "ブロック"
-description: "ページに置ける 9 種類のブロックと、それぞれの設定項目。"
+description: "ページに置ける 10 種類のブロックと、それぞれの設定項目。"
 ---
 
 「ブロック」タブの「＋」から種類を選んで追加します。追加したブロックはプレビュー上でドラッグして並び替えられます。
@@ -52,6 +52,17 @@ description: "ページに置ける 9 種類のブロックと、それぞれの
 X (Twitter) / Instagram / YouTube / TikTok / GitHub / note / pixiv / Twitch / Discord / LINE / Threads / Bluesky / Spotify / Web サイト / メール
 
 URL を入れるとサービスごとのアイコンで表示されます。「Web サイト」は任意の URL、「メール」は `mailto:` 形式で指定します。
+
+## タグ
+
+「YouTube 個人」のように、**ジャンル**（大きめの太字）と **カテゴリ** を組み合わせた丸いラベルを並べます。活動しているサービスやジャンルを伝えるのに使います。
+
+- **候補から追加**: ジャンル（Instagram / Twitter / TikTok / YouTube / 17LIVE / SHOWROOM / ツイキャス / Pinterest / 食べログ / Amebaブログ / YOUTRUST など 16 種類）を選び、カテゴリ（個人・音楽・ゲームなど）を押すと追加されます。もう一度押すと外れます
+- **自由に入力して追加**: 候補に無いタグも入力できます。ジャンルは省略でき、カテゴリだけのタグにもできます
+- 揃え（左 / 中央 / 右）を選べます。1 ブロックに 30 個、ジャンル・カテゴリはそれぞれ 40 文字まで
+
+色はテーマの「カード背景」「文字色」「補助文字色」に従います。[カスタム CSS](/guide/editor/custom-css/) では `.folita-tags` `.folita-tag` `.folita-tag__genre` `.folita-tag__label` で変えられます。
+[lit.link から取り込む](/integrations/import/) と、lit.link の活動ジャンルはこのタグになります。
 
 ## 埋め込み
 
