@@ -43,6 +43,7 @@ description: "ページに置ける 11 種類のブロックと、それぞれ�
 | 画像 | アップロード（PNG / JPEG / WebP / GIF、2MB まで）または URL |
 | リンク先 | 指定すると画像全体がリンクになる（省略可） |
 | 代替テキスト | 画像の説明（省略可） |
+| ラベル | 画像の左上に重ねて出す短い文字（60 文字まで。例: 「New Single」。省略可） |
 | 縦横比 | 自動 / 正方形 / 16:9 / 横長 |
 
 ## 画像の横並び
@@ -55,8 +56,9 @@ description: "ページに置ける 11 種類のブロックと、それぞれ�
 | 比率 | 正方形（既定）/ 自動 / 16:9 / 横長。すべての画像に同じ比率を使います |
 | 画像 | 1 ブロックに 10 枚まで。1 枚ずつアップロード（PNG / JPEG / WebP / GIF、2MB まで）するか URL を入れます。← → で順番を入れ替えられます |
 | リンク先・代替テキスト | 画像ごとに指定できます（省略可） |
+| 画像の代わりに SNS アイコン | 画像を入れていない枠には、Instagram / X / TikTok / YouTube などのアイコンを正方形のタイルで出せます（SNS へのリンクを 4 つ並べるときなど） |
 
-[カスタム CSS](/guide/editor/custom-css/) では `.folita-gallery` `.folita-gallery--row` `.folita-gallery--slide` `.folita-gallery--cols-2`〜`.folita-gallery--cols-4` `.folita-gallery__item` `.folita-gallery__img` で変えられます。
+[カスタム CSS](/guide/editor/custom-css/) では `.folita-gallery` `.folita-gallery--row` `.folita-gallery--slide` `.folita-gallery--cols-2`〜`.folita-gallery--cols-4` `.folita-gallery__item` `.folita-gallery__img` `.folita-gallery__icon` で変えられます。
 
 ## SNS アイコン
 
@@ -84,11 +86,14 @@ URL を入れるとサービスごとのアイコンで表示されます。「W
 | サービス | 貼れる URL の例 |
 | --- | --- |
 | YouTube | `https://www.youtube.com/watch?v=...` `https://youtu.be/...` |
-| Spotify | `https://open.spotify.com/track/...` `.../album/...` `.../playlist/...` |
+| Spotify | `https://open.spotify.com/track/...` `.../album/...` `.../playlist/...` `.../artist/...` |
+| Apple Music | `https://music.apple.com/jp/album/...`（アルバム）、`.../album/...?i=...`（曲）、`.../playlist/...` |
 | Vimeo | `https://vimeo.com/123456789` |
 | SoundCloud | `https://soundcloud.com/artist/track` |
 
-YouTube はプライバシー強化モード（`youtube-nocookie.com`）で埋め込まれます。対応外の URL は保存時に空になります。
+YouTube はプライバシー強化モード（`youtube-nocookie.com`）で埋め込まれます。対応外の URL（Apple Music のアーティストのページなど）は表示されません。
+
+**タイトル** を入れると、プレーヤーの下に表示します（省略可）。プレーヤーの高さはサービスと種類で決まります（Spotify の曲・エピソードは小さく、アーティスト・アルバム・プレイリストは大きく。Apple Music は曲だけ小さく）。
 
 ## フィード
 
