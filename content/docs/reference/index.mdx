@@ -38,7 +38,7 @@ folita は役割ごとにホストが分かれています。ログイン状態�
 | `https://accounts.folita.me/logout` | ログアウト |
 | `https://accounts.folita.me/sessions/forgot_password` | パスワード再設定メールの送信 |
 | `https://accounts.folita.me/settings` | 設定（`?tab=domain` で独自ドメイン、`?tab=analytics` でアナリティクス分析、`?tab=other` で Webhook・エクスポート） |
-| `https://accounts.folita.me/authorize?provider=<google\|github\|x\|apple\|line\|discord>` | ソーシャルログインの開始（`&link=1` で連携の追加） |
+| `https://accounts.folita.me/authorize?provider=<google\|github\|x\|apple\|line\|discord>` | ソーシャルログインの開始（`&link=1` で連携の追加。Google は `&scopes=youtube,calendar` で各サービスの読み取り権限を段階的に追加） |
 
 ## ダッシュボード
 
