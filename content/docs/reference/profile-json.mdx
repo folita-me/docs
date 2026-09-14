@@ -90,7 +90,7 @@ description: "エクスポートやエディタの保存で使うプロフィー
 | キー | 内容 |
 | --- | --- |
 | `id` | UUID。[Webhook](/integrations/webhook/) と [CSS](/reference/css/) の `data-block-id` に使われる |
-| `type` | `link` `richlink` `text` `heading` `image` `social` `embed` `divider` |
+| `type` | `link` `richlink` `text` `heading` `image` `social` `embed` `feed` `divider` |
 | `style` | 任意。`bg` `color`（色）、`radius`（0〜999）、`className`（300 文字まで） |
 | `colSpan` / `rowSpan` | グリッド配置での幅（1: 半分、2: 全幅）と高さ（1〜2 行） |
 | `visible` | 非表示なら `false` |
@@ -106,6 +106,7 @@ description: "エクスポートやエディタの保存で使うプロフィー
 | `image` | `imageUrl` `url`（リンク先、任意）`title`（代替テキスト、200）`aspect`（`auto` `square` `video` `wide`） |
 | `social` | `items`: `[{ "platform": "x", "url": "https://x.com/..." }, ...]`（30 個まで）。`platform` は `x` `instagram` `youtube` `tiktok` `github` `note` `pixiv` `twitch` `discord` `line` `threads` `bluesky` `spotify` `website` `email` |
 | `embed` | `embedUrl`（YouTube / Spotify / Vimeo / SoundCloud の URL）`title`（200） |
+| `feed` | `source`（`note` `bluesky` `youtube` `x`）`account`（note のユーザー名 / Bluesky のハンドル / YouTube のチャンネル ID。`x` は空）`count`（1〜10）`title`（200） |
 | `divider` | なし |
 
 括弧内は最大文字数です。URL は `https:` `http:` `mailto:` `tel:` とサイト内パスだけが有効で、それ以外は空になります。
