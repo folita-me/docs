@@ -14,11 +14,13 @@ description: "エクスポートやエディタの保存で使うプロフィー
   "userId": 34,
   "displayName": "山田 花子",
   "bio": "イラストレーター。お仕事のご相談は DM へ",
+  "status": "作業中",
   "avatarUrl": "https://cdn.folita.me/avatars/u1-abc123.png",
   "coverUrl": "",
   "theme": { "...": "テーマ（下記）" },
   "customCss": ".folita-link { font-weight: 700 }",
   "layoutMode": "grid",
+  "nav": { "...": "ページとナビ（下記）" },
   "published": true,
   "updatedAt": 1757646105,
   "blocks": [ { "...": "ブロック（下記）" } ]
@@ -29,18 +31,45 @@ description: "エクスポートやエディタの保存で使うプロフィー
 | --- | --- | --- |
 | `displayName` | string | 表示名（80 文字まで） |
 | `bio` | string | 自己紹介（1000 文字まで） |
+| `status` | string | ひとことステータス（60 文字まで、1 行） |
 | `avatarUrl` / `coverUrl` | string | アイコン / カバー画像の URL。空なら未設定 |
 | `theme` | object | テーマ |
 | `customCss` | string | カスタム CSS（保存時にサニタイズ） |
 | `layoutMode` | `"stack"` \| `"grid"` | 縦並び / グリッド |
+| `nav` | object | ページ（タブ）とナビ |
 | `published` | boolean | 公開しているか |
 | `updatedAt` | number | 最終保存の UNIX 時刻（秒） |
 | `blocks` | array | ブロック。`sortOrder` の順 |
+
+## ページとナビ
+
+```json
+{
+  "style": "bottom",
+  "header": "all",
+  "labels": true,
+  "items": [
+    { "type": "page", "key": "home", "label": "ホーム", "icon": "home" },
+    { "type": "page", "key": "tweets", "label": "つぶやき", "icon": "message" },
+    { "type": "link", "url": "https://example.com/", "label": "サイト", "icon": "globe", "newTab": true }
+  ]
+}
+```
+
+| キー | 取りうる値 |
+| --- | --- |
+| `style` | `bottom`（下バー）`top`（上のタブ）`none`（出さない） |
+| `header` | `all`（全ページにプロフィール）`first`（最初のページだけ） |
+| `labels` | アイコンの下に名前を出すか |
+| `items` | 8 個まで。`page` は `key`（半角英小文字・数字・`-` `_`、24 文字まで。重ならない）と `label`（20 文字）`icon`、`link` は `url` `label` `icon` `newTab`。`key` が `home` のページは必ずある |
+| `icon` | `home` `message` `music` `palette` `video` `image` `link` `heart` `star` `user` `mail` `book` `pen` `camera` `gamepad` `code` `coffee` `globe` `calendar` `rss` `shop` `server` `activity` `sparkles` `info` `key` `external` `grid` `layers` |
 
 ## テーマ
 
 ```json
 {
+  "kind": "classic",
+  "options": {},
   "preset": "clean",
   "background": { "type": "solid", "color": "#f7f7f5" },
   "fontFamily": "noto-sans-jp",
@@ -60,9 +89,11 @@ description: "エクスポートやエディタの保存で使うプロフィー
 
 | キー | 取りうる値 |
 | --- | --- |
+| `kind` | テーマ。`classic` `liquidglass` |
+| `options` | テーマ固有の設定。`liquidglass` は `orb1`〜`orb4`（色）`tint`（0〜0.9）`blur`（0〜40）`refraction`（0〜60）`card` `orbs` `motion` `lens`（boolean） |
 | `preset` | `clean` `midnight` `sakura` `mono` `forest` `paper` `pop` `custom` |
 | `background.type` | `solid`（`color`）/ `gradient`（`from` `to` `angle` 0〜360）/ `image`（`url` `overlay` 0〜1） |
-| `fontFamily` | `system` `noto-sans-jp` `inter` `zen-kaku` `mplus-rounded` `kosugi-maru` `shippori-mincho` `playfair` `space-grotesk` `dm-mono` `dela-gothic` |
+| `fontFamily` | `system` `noto-sans-jp` `roboto-jp` `inter` `zen-kaku` `mplus-rounded` `kosugi-maru` `shippori-mincho` `playfair` `space-grotesk` `dm-mono` `dela-gothic` |
 | `textColor` `mutedColor` `accentColor` `buttonColor` `buttonTextColor` `cardBg` | CSS の色（`#rgb` `#rrggbb` `rgb()` `rgba()` など） |
 | `buttonStyle` | `solid` `outline` `soft` `shadow` `glass` |
 | `buttonRadius` | 0〜999 |
@@ -80,6 +111,7 @@ description: "エクスポートやエディタの保存で使うプロフィー
   "type": "link",
   "content": { "...": "種類ごと（下記）" },
   "style": { "bg": "#ffffff", "color": "#111111", "radius": 12, "className": "hero" },
+  "page": "home",
   "sortOrder": 0,
   "colSpan": 2,
   "rowSpan": 1,
@@ -90,7 +122,8 @@ description: "エクスポートやエディタの保存で使うプロフィー
 | キー | 内容 |
 | --- | --- |
 | `id` | UUID。[Webhook](/integrations/webhook/) と [CSS](/reference/css/) の `data-block-id` に使われる |
-| `type` | `link` `richlink` `text` `heading` `image` `social` `embed` `feed` `divider` |
+| `type` | `link` `richlink` `text` `heading` `image` `gallery` `social` `tags` `table` `embed` `feed` `timeline` `divider` |
+| `page` | 置くページの `key`（ナビに無いページならホーム） |
 | `style` | 任意。`bg` `color`（色）、`radius`（0〜999）、`className`（300 文字まで） |
 | `colSpan` / `rowSpan` | グリッド配置での幅（1: 半分、2: 全幅）と高さ（1〜2 行） |
 | `visible` | 非表示なら `false` |
@@ -107,6 +140,8 @@ description: "エクスポートやエディタの保存で使うプロフィー
 | `social` | `items`: `[{ "platform": "x", "url": "https://x.com/..." }, ...]`（30 個まで）。`platform` は `x` `instagram` `youtube` `tiktok` `github` `note` `pixiv` `twitch` `discord` `line` `threads` `bluesky` `spotify` `website` `email` |
 | `embed` | `embedUrl`（YouTube / Spotify / Vimeo / SoundCloud の URL）`title`（200） |
 | `feed` | `source`（`note` `bluesky` `youtube` `x`）`account`（note のユーザー名 / Bluesky のハンドル / YouTube のチャンネル ID。X のユーザー名。`x` は空なら連携中のアカウント）`count`（1〜10）`title`（200） |
+| `table` | `title`（200）`rows`: `[{ "label": "趣味", "value": "音楽", "url": "" }, ...]`（30 行まで。`label` 40・`value` 500） |
+| `timeline` | `title`（200）`sources`（`x` `bluesky` `threads` `note` `youtube` `pixiv` の配列。空ならすべて）`layout`（`list` `grid`）`count`（5〜200）`showMetrics` `translate` `sourceTabs` `accountTabs` `refresh`（boolean）`translateTarget`（DeepL の言語コード）`kinds`（`post` `reply` `retweet` `quote` の boolean） |
 | `divider` | なし |
 
 括弧内は最大文字数です。URL は `https:` `http:` `mailto:` `tel:` とサイト内パスだけが有効で、それ以外は空になります。

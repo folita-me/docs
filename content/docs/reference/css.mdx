@@ -32,6 +32,11 @@ description: "公開ページの HTML に付くクラス名・属性と、テー
 | クラス | 要素 |
 | --- | --- |
 | `.folita-page` | ページ全体（`<body>`）。CSS 変数はここに定義されている |
+| `.folita-theme-classic` `.folita-theme-liquidglass` | 使っている [テーマ](/guide/editor/design/#テーマ)（`.folita-page` に付く）。リキッドグラスでは `.folita-lg-headercard`（プロフィールのカード）`.folita-lg-lens`（下バーのレンズ）も付く |
+| `.folita-has-nav` `.folita-nav-bottom` `.folita-nav-top` | ページが 2 つ以上でナビを出しているとき（`.folita-page` に付く） |
+| `.folita-avatar-wrap` / `.folita-status` | ひとことステータスがあるときのアイコンの枠 / 吹き出し |
+| `.folita-panels` / `.folita-panel` | ページ（タブ）の並び / ページ 1 つ（`data-page` にページの `#`。表示中は `.is-active`） |
+| `.folita-nav` / `.folita-nav__item` | ナビ（`.folita-nav--bottom` 下バー / `.folita-nav--top` 上のタブ）/ 項目（選択中は `.is-active`、リンクは `.folita-nav__item--link`）。`.folita-nav__label` は名前、`.folita-nav__lens` は下バーのレンズ |
 | `.folita-cover` | カバー画像。あるときは `.folita-container--cover` も付く |
 | `.folita-container` | 本体（最大幅を持つ中央の列） |
 | `.folita-header` | アイコン・名前・自己紹介のまとまり |
@@ -51,6 +56,15 @@ description: "公開ページの HTML に付くクラス名・属性と、テー
 | `.folita-feed` / `.folita-feed__item` | フィード / 投稿 1 件。取得元ごとに `.folita-feed--note` `--bluesky` `--youtube` `--x` |
 | `.folita-feed__text` / `.folita-feed__tag` | 投稿の本文 / 本文中のハッシュタグ |
 | `.folita-feed__images` / `.folita-feed__img` | X・Bluesky の添付画像の並び（1 枚なら `.folita-feed__images--single`）/ note・YouTube の横のサムネイル |
+| `.folita-table` / `.folita-table__row` | 表 / 行（`dt` 見出し・`dd` 内容）。`.folita-table__title` は表の見出し |
+| `.folita-timeline` | タイムライン。並べ方ごとに `.folita-timeline--list` `--grid` |
+| `.tl-entry` / `.tl-thread` / `.tl-post` | 投稿のカード / スレッドのカード / 投稿 1 件（返信は `.tl-reply`） |
+| `.tl-name` `.tl-handle` `.tl-open` `.tl-text` | 投稿者の名前 / @ID / 「で開く」/ 本文（`.tl-hashtag` `.tl-mention`） |
+| `.tl-media` `.tl-poll` `.tl-place` `.tl-quote` | 添付メディア / 投票 / 位置情報 / 引用カード（返信先は `.tl-parent`） |
+| `.tl-metrics` `.tl-metric` `.tl-time` | いいね・リポスト・返信・表示回数の行 / 数 1 つ / 日時 |
+| `.tl-tr` `.tl-tr-toggle` | 翻訳バー / 「翻訳を表示・原文を表示」 |
+| `.tl-tabs` `.tl-tab` / `.tl-accounts` `.tl-chip` | 取得元のタブ / アカウントのチップ |
+| `.tl-grid` `.tl-work` | ギャラリー / 作品 1 つ |
 | `.folita-divider` | 区切り線 |
 | `.folita-footer` | ページ下部の folita 表記 |
 
@@ -78,6 +92,10 @@ description: "公開ページの HTML に付くクラス名・属性と、テー
 | `--f-max` | 本体の最大幅 | `560px` |
 | `--f-avatar` | アイコンの大きさ | `96px` |
 | `--f-font` | フォント | Noto Sans JP |
+| `--f-surface` | メニュー・モーダルの下地（文字色から自動で白か黒） | `#ffffff` |
+| `--f-border` | 区切り線（補助の文字色を薄めた色） | — |
+| `--t-*` | テーマ固有の設定（リキッドグラスは `--t-orb1`〜`--t-orb4` `--t-tint` `--t-blur` `--t-refraction` など） | — |
+| `--tl-link` | タイムラインのハッシュタグ・翻訳の切り替え・投票の色（`.folita-timeline` に定義。既定はアクセント色） | `var(--f-accent)` |
 
 ## 取り除かれる CSS
 

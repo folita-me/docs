@@ -1,10 +1,11 @@
 {
   "title": "連携・計測",
-  "description": "データソース・GA4 / Meta ピクセル・Webhook・エクスポート・インポート",
+  "description": "データソース・タイムライン・GA4 / Meta ピクセル・Webhook・エクスポート・インポート",
   "root": true,
   "pages": [
     "index",
     "sources",
+    "timeline",
     "webhook",
     "export",
     "import"
