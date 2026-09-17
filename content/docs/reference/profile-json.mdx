@@ -15,6 +15,8 @@ description: "エクスポートやエディタの保存で使うプロフィー
   "displayName": "山田 花子",
   "bio": "イラストレーター。お仕事のご相談は DM へ",
   "status": "作業中",
+  "birthday": "2006-09-18",
+  "birthdayVisibility": "all",
   "avatarUrl": "https://cdn.folita.me/avatars/u1-abc123.png",
   "coverUrl": "",
   "theme": { "...": "テーマ（下記）" },
@@ -32,6 +34,8 @@ description: "エクスポートやエディタの保存で使うプロフィー
 | `displayName` | string | 表示名（80 文字まで） |
 | `bio` | string | 自己紹介（1000 文字まで） |
 | `status` | string | ひとことステータス（60 文字まで、1 行） |
+| `birthday` | string | 生年月日（`YYYY-MM-DD` 形式。空なら未設定） |
+| `birthdayVisibility` | `"all"` \| `"month_day"` \| `"year"` \| `"none"` | 誕生日の公開範囲（年月日 / 月日だけ / 年だけ / 非公開） |
 | `avatarUrl` / `coverUrl` | string | アイコン / カバー画像の URL。空なら未設定 |
 | `theme` | object | テーマ |
 | `customCss` | string | カスタム CSS（保存時にサニタイズ） |
