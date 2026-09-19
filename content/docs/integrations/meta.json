@@ -1,6 +1,6 @@
 {
   "title": "連携・計測",
-  "description": "データソース・タイムライン・GA4 / Meta ピクセル・Webhook・エクスポート・インポート",
+  "description": "データソース・タイムライン・GA4 / Meta ピクセル・Webhook・エクスポート・インポート・MCP サーバー",
   "root": true,
   "pages": [
     "index",
@@ -9,6 +9,7 @@
     "music",
     "webhook",
     "export",
-    "import"
+    "import",
+    "mcp"
   ]
 }

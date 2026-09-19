@@ -1,0 +1,102 @@
+---
+title: "MCP サーバー"
+description: "公開ページを MCP サーバーにして、Claude などの AI アシスタントから読めるようにします。"
+---
+
+[accounts.folita.me/settings?tab=tools](https://accounts.folita.me/settings?tab=tools)（設定の「便利機能」タブ）で「MCP サーバーとして公開する」をオンにすると、
+公開ページが [MCP（Model Context Protocol）](https://modelcontextprotocol.io/) のサーバーになります。
+Claude などの AI アシスタントに URL を渡すと、プロフィール・リンク・つぶやき・音楽ライブラリを読んで答えられるようになります。
+
+<Callout type="info">
+返すのは、公開ページを未ログインで開いた人に見えるものだけです。非表示のブロック、公開範囲が「自分にだけ表示」のアカウントの投稿、非公開にした誕生日は返しません。
+読み取り専用で、MCP から何かを書き換えることはできません。既定はオフです。
+</Callout>
+
+## 接続先の URL
+
+```text
+https://folita.me/@<ユーザー ID>/mcp
+```
+
+`https://<ユーザー ID>.folita.me/mcp` と、[独自ドメイン](/guide/custom-domain/) の `https://<ドメイン>/mcp` でも同じサーバーにつながります。
+トランスポートは Streamable HTTP で、認証はありません。公開をオフにしている間は 404 を返します。
+URL は設定の「便利機能」タブの「接続先の URL」からもコピーできます。
+
+## つなぎ方
+
+### Claude Code
+
+```bash
+claude mcp add --transport http folita-<ユーザー ID> https://folita.me/@<ユーザー ID>/mcp
+```
+
+プロジェクトの `.mcp.json` に書く場合:
+
+```json
+{
+  "mcpServers": {
+    "folita-<ユーザー ID>": {
+      "type": "http",
+      "url": "https://folita.me/@<ユーザー ID>/mcp"
+    }
+  }
+}
+```
+
+### Claude（claude.ai・デスクトップアプリ）
+
+設定 › コネクタ › 「カスタムコネクタを追加」で、名前と URL を入れます。
+
+ほかのクライアントも、Streamable HTTP の MCP サーバーに対応していれば URL を指定するだけで使えます。
+
+## ツール
+
+ページに置いてあるブロックに合わせて出し分けます。すべて読み取り専用です。
+
+| ツール | 内容 |
+| --- | --- |
+| `get_profile` | 表示名・自己紹介・ひとことステータス・誕生日（公開している範囲）・ページの一覧・リンク・SNS・タグ（JSON） |
+| `get_page` | ページ（タブ）の中身を Markdown で。`page` にページのキーを入れるとそのページだけ、省略すると全ページ |
+| `get_posts` | [タイムライン](/integrations/timeline/) の投稿を新しい順に。タイムラインブロックがあるときだけ |
+| `list_songs` | [音楽ライブラリ](/integrations/music/) の楽曲。音楽ブロックがあるときだけ |
+
+日時は日本時間（`+09:00`）の ISO 8601 で返します。
+
+### get_posts の引数
+
+| 引数 | 内容 |
+| --- | --- |
+| `query` | 本文に含む語（部分一致。大文字小文字は区別しない） |
+| `source` | 取得元（`x` `bluesky` `threads` `note` `youtube` `pixiv` のうち、公開ページのタイムラインに出ているもの） |
+| `kinds` | 種類。`post`（投稿）`reply`（返信）`quote`（引用）`retweet`（リポスト）`mention`（他の人からのメンション）。省略すると `post` `reply` `quote` |
+| `since` / `until` | 期間（ISO 8601。日付だけなら日本時間の 0 時。`until` の時刻ちょうどは含まない） |
+| `limit` | 件数（1〜50、既定 20） |
+| `cursor` | 前の結果の `nextCursor`。続き（より古い投稿）を読む。`null` なら最後 |
+
+いいね数などは、どれかのタイムラインブロックで「いいね・リポスト・返信・表示回数を出す」をオンにしているときだけ返します。
+
+### list_songs の引数
+
+| 引数 | 内容 |
+| --- | --- |
+| `query` | 曲名・アーティスト・アルバムに含む語 |
+| `section` / `label` / `playlist` | セクション・ラベル・プレイリストで絞る |
+| `loved` | `true` ならいいねした曲だけ |
+| `sort` | `default`（セクション順）`added`（追加が新しい順）`plays`（再生回数）`played`（最近聴いた順）`loved`（いいねが先）`score`（評価）`title`（曲名） |
+| `limit` / `offset` | 件数（1〜200、既定 50）と開始位置。続きは結果の `nextOffset` |
+
+## リソース
+
+`folita://<ユーザー ID>/profile`（全ページ）と `folita://<ユーザー ID>/pages/<ページのキー>` を Markdown で読めます。
+Claude Code では `@` から選んで会話に添付できます。
+
+## 試してみる
+
+セッションを持たないので、`initialize` を送らずにツールを呼んでも答えます。
+
+```bash
+curl -s https://folita.me/@<ユーザー ID>/mcp \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json, text/event-stream' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"get_profile","arguments":{}}}'
+```
