@@ -72,7 +72,7 @@ description: "エクスポートやエディタの保存で使うプロフィー
 
 ```json
 {
-  "kind": "classic",
+  "kind": "material",
   "options": {},
   "preset": "clean",
   "background": { "type": "solid", "color": "#f7f7f5" },
@@ -93,7 +93,7 @@ description: "エクスポートやエディタの保存で使うプロフィー
 
 | キー | 取りうる値 |
 | --- | --- |
-| `kind` | テーマ。`classic` `liquidglass` |
+| `kind` | テーマ。`material` `liquidglass`（`classic` は `material` の旧名）。`adaptive` が true なら端末で決まる |
 | `options` | テーマ固有の設定。`liquidglass` は `orb1`〜`orb4`（色）`tint`（0〜0.9）`blur`（0〜40）`refraction`（0〜60）`card` `orbs` `motion` `lens`（boolean） |
 | `preset` | `clean` `midnight` `sakura` `mono` `forest` `paper` `pop` `custom` |
 | `background.type` | `solid`（`color`）/ `gradient`（`from` `to` `angle` 0〜360）/ `image`（`url` `overlay` 0〜1） |
