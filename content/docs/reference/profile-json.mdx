@@ -17,6 +17,7 @@ description: "エクスポートやエディタの保存で使うプロフィー
   "status": "作業中",
   "birthday": "2006-09-18",
   "birthdayVisibility": "all",
+  "titleSuffix": true,
   "avatarUrl": "https://cdn.folita.me/avatars/u1-abc123.png",
   "coverUrl": "",
   "theme": { "...": "テーマ（下記）" },
@@ -36,6 +37,7 @@ description: "エクスポートやエディタの保存で使うプロフィー
 | `status` | string | ひとことステータス（60 文字まで、1 行） |
 | `birthday` | string | 生年月日（`YYYY-MM-DD` 形式。空なら未設定） |
 | `birthdayVisibility` | `"all"` \| `"month_day"` \| `"year"` \| `"none"` | 誕生日の公開範囲（年月日 / 月日だけ / 年だけ / 非公開） |
+| `titleSuffix` | boolean | 公開ページのブラウザーのタブのタイトル「表示名 (@ID) \| folita.me」に「\| folita.me」を付けるか（既定 `true`） |
 | `avatarUrl` / `coverUrl` | string | アイコン / カバー画像の URL。空なら未設定 |
 | `theme` | object | テーマ |
 | `customCss` | string | カスタム CSS（保存時にサニタイズ） |
