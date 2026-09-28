@@ -37,6 +37,8 @@ description: "公開ページの HTML に付くクラス名・属性と、テー
 | `.folita-avatar-wrap` / `.folita-status` / `.folita-avatar-cake` | アイコンの枠 / ひとことステータスの吹き出し / 誕生日当日のケーキ（左下に隣接） |
 | `.folita-panels` / `.folita-panel` | ページ（タブ）の並び / ページ 1 つ（`data-page` にページの `#`。表示中は `.is-active`） |
 | `.folita-nav` / `.folita-nav__item` | ナビ（`.folita-nav--bottom` 下バー / `.folita-nav--top` 上のタブ）/ 項目（選択中は `.is-active`、リンクは `.folita-nav__item--link`）。`.folita-nav__label` は名前、`.folita-nav__lens` は下バーのレンズ |
+| `.folita-handle` | 名前の下の `@ID`。Windows のテーマだけ表示（ほかのテーマでは `display: none`。カスタム CSS で出せる） |
+| `.folita-fl-sidebar` / `.folita-fl-brand` / `.folita-panel--account` | Windows で左メニューが出るときの骨組み。左メニュー・アカウント欄（押すと `#account` のパネル）・アカウントのパネル（`.folita-acct-card` `.folita-acct-expander` など） |
 | `.folita-cover` | カバー画像。あるときは `.folita-container--cover` も付く |
 | `.folita-container` | 本体（最大幅を持つ中央の列） |
 | `.folita-header` | アイコン・名前・自己紹介のまとまり |
@@ -66,7 +68,7 @@ description: "公開ページの HTML に付くクラス名・属性と、テー
 | `.tl-tabs` `.tl-tab` / `.tl-accounts` `.tl-chip` | 取得元のタブ / アカウントのチップ |
 | `.tl-grid` `.tl-work` | ギャラリー / 作品 1 つ |
 | `.folita-divider` | 区切り線 |
-| `.folita-footer` | ページ下部の folita 表記 |
+| `.folita-footer` | ページ下部の folita 表記（Windows で左メニューが出るときは左メニューの © の上。`.folita-footer--side`） |
 
 ## 属性
 
