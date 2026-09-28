@@ -121,7 +121,8 @@ description: "エクスポートやエディタの保存で使うプロフィー
   "sortOrder": 0,
   "colSpan": 2,
   "rowSpan": 1,
-  "visible": true
+  "visible": true,
+  "visibility": "all"
 }
 ```
 
@@ -133,6 +134,7 @@ description: "エクスポートやエディタの保存で使うプロフィー
 | `style` | 任意。`bg` `color`（色）、`radius`（0〜999）、`className`（300 文字まで） |
 | `colSpan` / `rowSpan` | グリッド配置での幅（1: 半分、2: 全幅）と高さ（1〜2 行） |
 | `visible` | 非表示なら `false` |
+| `visibility` | `"all"` \| `"owner"`。`owner` は folita にログインした本人にだけ表示（ほかの人と MCP サーバーには出ない） |
 
 ### `content` の形
 
